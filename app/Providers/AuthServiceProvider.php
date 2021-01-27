@@ -32,5 +32,12 @@ class AuthServiceProvider extends ServiceProvider
                 return false;
             }
         });
+        Gate::define('delete-comment', function ($user, $comment) {
+            if($comment->user_id == $user->id){
+                return true;
+            }else{
+                return false;
+            }
+        });
     }
 }

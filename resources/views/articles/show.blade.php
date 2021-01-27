@@ -38,23 +38,31 @@ Articulo
                             <h3>Comentarios</h3>
                         </div>
                         @foreach ($article->comments as $comment)
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h4>{{$comment->user->name}}</h4>
-                                        <p>{{$comment->text}}</p>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <form action="{{route('comments.destroy', $comment)}}" method="post">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" class="btn btn-danger">
-                                                Eliminar
-                                            </button>
-                                        </form>
+                        <div class="col-md-12 mt-2">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <h4>{{$comment->user->name}}</h4>
+                                        </div>
+                                        <div class="col-md-6">
+                                            @if (Gate::allows('delete-comment', $comment))
+                                                <form action="{{route('comments.destroy', $comment)}}" method="post" class="float-right">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        Eliminar
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="card-body">
+                                    <p>{{$comment->text}}</p>
+                                </div>
                             </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>
