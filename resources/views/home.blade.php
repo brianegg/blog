@@ -32,7 +32,15 @@
                                     <img class="img-fluid" src="{{url('uploads/'.$article->image)}}" alt="">
                                 </div>
                                 <div class="col-md-12 text-right">
+                                    Likes: {{$article->likes->count()}}
                                     Comentarios: {{$article->comments->count()}}
+                                    @if (Gate::allows('like-article', $article))
+                                        <a href="{{route('likes.store', $article)}}">
+                                            <button type="button" class="btn btn-info">
+                                                Like
+                                            </button>
+                                        </a>
+                                    @endif
                                     @if (Gate::allows('update-article', $article))
                                         <a href="{{route('articles.edit', $article)}}">
                                             <button type="button" class="btn btn-warning">

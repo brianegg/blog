@@ -24,3 +24,4 @@ Route::get('/articles', 'ArticleController@index')->name('articles.index');
 Route::resource('articles', 'ArticleController')->middleware('auth');
 Route::post('/comments/{article}', 'CommentController@store')->name('comments.storeComment')->middleware('auth');
 Route::resource('comments', 'CommentController')->middleware('auth');
+Route::get('/like/{article}', 'LikeController@store')->name('likes.store')->middleware('auth');
